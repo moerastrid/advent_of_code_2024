@@ -68,8 +68,8 @@ public class Two {
 		Collections.sort(leftList);
 		Collections.sort(rightList);
 
-		System.out.println("Left  list: " + leftList);
-		System.out.println("Right list: " + rightList);
+//		System.out.println("Left  list: " + leftList);
+//		System.out.println("Right list: " + rightList);
 	}
 
 	static private Long getScore() {
@@ -79,22 +79,17 @@ public class Two {
 
 		i = 0;
 		while (i < leftList.size()) {
-			System.out.println("\nLeft #" + i + ": " + leftList.get(i));
 			j = 0;
 			Long count = (long) 0;
 			Long score = (long) 0;
 			while (j < rightList.size()) {
-				System.out.println("Right #" + j + ": " + rightList.get(j));
-				if (leftList.get(i) > rightList.get(j)) {
-					System.out.println("left > right");
-				} else if (leftList.get(i).equals(rightList.get(j))) {
-					System.out.println("SAAAMEE!!!");
+				if (leftList.get(i).longValue() > rightList.get(j).longValue()) {
+				} else if (leftList.get(i).longValue() == rightList.get(j).longValue()) {
 					count++;			
 				} else {
-					System.out.println("left < right");
 					if (count != 0) {
 						score = leftList.get(i) * count;
-						System.out.println("l: " + leftList.get(i) + " score: " + score + " count: " + count);
+//						System.out.println("l: " + leftList.get(i) + " score: " + score + " count: " + count);
 						finalScore += score;
 					}
 					j = rightList.size();
