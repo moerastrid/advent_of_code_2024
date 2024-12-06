@@ -1,3 +1,5 @@
+package src.day_1;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,10 +10,10 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Two {
+public class One {
 	static private String pathname = "example.txt";
-	static private List<Long> leftList = new ArrayList<Long>();
-	static private List<Long> rightList = new LinkedList<Long>();
+	static private List<Integer> leftList = new ArrayList<Integer>();
+	static private List<Integer> rightList = new LinkedList<Integer>();
 
 	public static void main(String [] args) {
 		if (args.length == 1) {
@@ -24,9 +26,8 @@ public class Two {
 			return;
 		
 		sortLists();
-
-		Long score = getScore();
-		System.out.println("ANSWER: " + score);
+		Integer distance = getDistance();
+		System.out.println("ANSWER: " + distance);
 	}
 
 	static private int convertFileToLists(String path) {
@@ -60,44 +61,34 @@ public class Two {
 		String[] parts = str.split("   ");
 //		System.out.println("Input String: " + str);
 //		System.out.println("Devided into: " + parts[0] + ", " + parts[1]);
-		leftList.add(Long.parseLong(parts[0]));
-		rightList.add(Long.parseLong(parts[1]));
+		leftList.add(Integer.parseInt(parts[0]));
+		rightList.add(Integer.parseInt(parts[1]));
 	}
 
 	static private void sortLists() {
 		Collections.sort(leftList);
 		Collections.sort(rightList);
-
-//		System.out.println("Left  list: " + leftList);
-//		System.out.println("Right list: " + rightList);
 	}
 
-	static private Long getScore() {
-		int i;
-		int j;
-		Long finalScore = (long) 0;
+	static private Integer getDistance() {
+		Integer totalDistance = 0;
 
-		i = 0;
-		while (i < leftList.size()) {
-			j = 0;
-			Long count = (long) 0;
-			Long score = (long) 0;
-			while (j < rightList.size()) {
-				if (leftList.get(i).longValue() > rightList.get(j).longValue()) {
-				} else if (leftList.get(i).longValue() == rightList.get(j).longValue()) {
-					count++;			
-				} else {
-					if (count != 0) {
-						score = leftList.get(i) * count;
-//						System.out.println("l: " + leftList.get(i) + " score: " + score + " count: " + count);
-						finalScore += score;
-					}
-					j = rightList.size();
-				}
-				j++;
-			}
-			i++;
+		for (int i = 0; i < leftList.size(); i++) {
+			totalDistance += getDiff(i);
 		}
-		return finalScore;
+		return totalDistance;
+	}
+
+	static private Integer getDiff(int i) {
+		Integer diff = 0;
+		Integer left = leftList.get(i);
+		Integer right = rightList.get(i);
+		
+		if (left > right) {
+			diff = left - right;
+		} else if (right > left) {
+			diff = right - left;
+		}
+		return diff;
 	}
 }
